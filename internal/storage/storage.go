@@ -65,7 +65,7 @@ func (s *Storage) InitDB() {
 func (s *Storage) ProductSearch(term string) ([]Product, error) {
 	var result []Product
 
-	err := s.db.Table("product").Where("WHERE MATCH (name) AGAINST (? IN BOOLEAN MODE)", term).Find(&result).Error
+	err := s.db.Table("products").Where("MATCH (name) AGAINST (? IN BOOLEAN MODE)", term).Find(&result).Error
 	if err != nil {
 		fmt.Printf("Error in fetching search result: %s\n", err)
 		return nil, err
@@ -73,10 +73,17 @@ func (s *Storage) ProductSearch(term string) ([]Product, error) {
 	return result, err
 }
 
-func (s *Storage) CreateCart() {
-
+func (s *Storage) CreateCart(cart *Cart) (int,error){
+	err:=s.db.Create(cart).Error
+	return cart.CartId,err
 }
 
-func (s *Storage) AddCartItem() {
-
+func (s *Storage) AddCartItem(item *CartItem) (*CartItem,error){
+	var err error
+	if item.CartItemId!=0{
+		err=s.db.Model(&CartItem{}).Where("cart_item_id=?",item.CartItemId).Updates(item).Error
+	}else {
+		err=s.db.Create(item).Error
+	}
+	return item,err
 }
