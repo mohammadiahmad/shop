@@ -38,3 +38,9 @@ paths:
           description: when parameters is not correct
         500:
           description: internal server err
+  /cart-item:
+    post:
+      description: add product item to cart
+      requestBody:
+        
+      responses:
