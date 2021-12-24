@@ -87,3 +87,8 @@ func (s *Storage) AddCartItem(item *CartItem) (*CartItem,error){
 	}
 	return item,err
 }
+
+func (s *Storage) RemoveItemFromCart(cart_item_id int) error {
+	err:=s.db.Delete(&CartItem{},"cart_item_id=?",cart_item_id).Error
+	return err
+}

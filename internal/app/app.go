@@ -27,6 +27,7 @@ func (a *App) Run() {
 	a.server.Use(logger.New())
 	a.server.Get("/search", a.search)
 	a.server.Post("/cart-item",a.addItemToCart)
+	a.server.Delete("/cart-item/:id",a.deleteItemFroCart)
 	addr := fmt.Sprintf("%s:%d", a.config.Address, a.config.Port)
 	err := a.server.Listen(addr)
 	if err != nil {

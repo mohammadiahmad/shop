@@ -42,5 +42,8 @@ This project have two api one for search between products and second for adding 
     }' \
      'http://127.0.0.1:9095/cart-item'
     ```
-
+3. delete item from cart
+   ```
+   curl -i -X DELETE 'http://127.0.0.1:9095/cart-item/2'
+   ```
    

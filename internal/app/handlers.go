@@ -1,7 +1,6 @@
 package app
 
 import (
-	"fmt"
 	"github.com/gofiber/fiber/v2"
 	"github.com/mohammadiahmad/shop/internal/storage"
 	"net/http"
@@ -38,7 +37,6 @@ func (a *App) addItemToCart(c *fiber.Ctx) error {
 	}
 	err:=c.BodyParser(&data)
 	if err!=nil{
-		fmt.Println(err)
 		return c.SendStatus(http.StatusBadRequest)
 	}
 
@@ -64,4 +62,16 @@ func (a *App) addItemToCart(c *fiber.Ctx) error {
 
 	}
 
+}
+
+func (a *App)deleteItemFroCart(c *fiber.Ctx) error{
+	itemId,err:=c.ParamsInt("id")
+	if err!=nil{
+		return c.SendStatus(http.StatusBadRequest)
+	}
+	err=a.db.RemoveItemFromCart(itemId)
+	if err!=nil {
+		return c.SendStatus(http.StatusInternalServerError)
+	}
+	return c.SendStatus(http.StatusOK)
 }
