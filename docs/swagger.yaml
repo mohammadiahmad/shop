@@ -1,7 +1,7 @@
 openapi: 3.0.0
 info:
   title: Sample Shop Api
-  description: Sample shop api with sum test api
+  description: Sample shop docs with sum test docs
   version: 0.1.9
 servers:
   - url: http://127.0.0.1

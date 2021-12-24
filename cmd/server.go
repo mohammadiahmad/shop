@@ -15,7 +15,7 @@ import (
 // serverCmd represents the server command
 var serverCmd = &cobra.Command{
 	Use:   "server",
-	Short: "Run api server",
+	Short: "Run docs server",
 	Run: func(cmd *cobra.Command, args []string) {
 		server()
 	},
