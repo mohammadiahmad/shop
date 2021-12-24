@@ -1,0 +1,40 @@
+openapi: 3.0.0
+info:
+  title: Sample Shop Api
+  description: Sample shop api with sum test api
+  version: 0.1.9
+servers:
+  - url: http://127.0.0.1
+    description: localserver
+
+paths:
+  /search:
+    get:
+      description: search between products and return result
+      parameters:
+        - name: term
+          in: query
+          required: true
+          schema:
+            type: string
+            minimum: 1
+      responses:
+        200:
+          description: list of products
+          content:
+            application/json:
+              schema:
+                type: array
+                properties:
+                  id:
+                    type: integer
+                  name:
+                    type: string
+                  price:
+                    type: integer
+                  quantity:
+                    type: integer
+        400:
+          description: when parameters is not correct
+        500:
+          description: internal server err
