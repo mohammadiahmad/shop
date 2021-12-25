@@ -30,13 +30,14 @@ This project have two api one for search between products and second for adding 
 2. add product to cart 
     ```
     curl -i -X POST \
-       -H "Content-Type:application/json" \
-       -d \
-    '{
-      "product_id":1,
-      "quantity":3,
-    }' \
-     'http://127.0.0.1:9095/cart-item'
+   -H "Content-Type:application/json" \
+   -d \
+   '{
+   "product_id":1,
+   "quantity":2
+   
+   }' \
+   'http://127.0.0.1:9095/cart-item'
     ```
 3. delete item from cart
    ```
