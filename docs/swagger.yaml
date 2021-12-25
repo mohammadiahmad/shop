@@ -62,16 +62,8 @@ components:
       required:
         - product_id
         - quantity
-        - price
       properties:
-        cart_item_id:
-          description: when we want update the quantity of item
-          type: integer
-        cart_id:
-          type: integer
         product_id:
           type: integer
         quantity:
-          type: integer
-        price:
           type: integer

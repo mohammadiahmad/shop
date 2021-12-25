@@ -7,7 +7,7 @@ package cmd
 import (
 	"fmt"
 	"github.com/mohammadiahmad/shop/internal/config"
-	"github.com/mohammadiahmad/shop/internal/storage"
+	"github.com/mohammadiahmad/shop/internal/readisearch"
 	"github.com/spf13/cobra"
 	"go.uber.org/zap"
 )
@@ -28,7 +28,7 @@ func init() {
 func migrate() {
 	cfg := config.Load()
 	l, _ := zap.NewProduction()
-	s, err := storage.NewDB(cfg.Storage, l)
+	s, err := readisearch.NewReadisearch(cfg.Storage, l)
 	if err != nil {
 		panic(err)
 	}

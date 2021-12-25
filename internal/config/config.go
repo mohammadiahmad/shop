@@ -7,13 +7,15 @@ import (
 	"github.com/knadh/koanf/parsers/yaml"
 	"github.com/knadh/koanf/providers/file"
 	"github.com/mohammadiahmad/shop/internal/app"
-	"github.com/mohammadiahmad/shop/internal/storage"
+	"github.com/mohammadiahmad/shop/internal/cart_storage"
+	"github.com/mohammadiahmad/shop/internal/readisearch"
 	"io/ioutil"
 )
 
 type Config struct {
-	Storage storage.Config
-	Server  app.Config
+	Storage readisearch.Config
+	Server app.Config
+	Redis  cart_storage.Config
 }
 
 const (

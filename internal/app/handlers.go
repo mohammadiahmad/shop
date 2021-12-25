@@ -2,7 +2,6 @@ package app
 
 import (
 	"github.com/gofiber/fiber/v2"
-	"github.com/mohammadiahmad/shop/internal/storage"
 	"net/http"
 )
 
@@ -11,8 +10,8 @@ type SearchQuery struct {
 }
 
 type IncomingData struct {
-	*storage.CartItem
-	CustomerID int `json:"customer_id"`
+	ProductId 	int		`json:"product_id"`
+	Quantity	int 	`json:"quantity"`
 }
 
 func (a *App) search(c *fiber.Ctx) error {
@@ -29,47 +28,28 @@ func (a *App) search(c *fiber.Ctx) error {
 }
 
 func (a *App) addItemToCart(c *fiber.Ctx) error {
-	ci:=&storage.CartItem{}
-	cart:=&storage.Cart{}
-	data:=IncomingData{
-		ci,
-		0,
-	}
+	cid:=c.Get("username","admin")
+	data:=IncomingData{}
 	err:=c.BodyParser(&data)
 	if err!=nil{
 		return c.SendStatus(http.StatusBadRequest)
 	}
 
-	if data.CartItem.CartId!=0{
-		d,err:=a.db.AddCartItem(data.CartItem)
-		if err!=nil{
-			return c.SendStatus(http.StatusInternalServerError)
-		}
-		return c.JSON(d)
-	} else{
-		cart.CustomerId=data.CustomerID
-		cart.PaymentStatus="not_payed"
-		cartId,err:=a.db.CreateCart(cart)
-		if err!=nil{
-			return c.SendStatus(http.StatusInternalServerError)
-		}
-		data.CartItem.CartId=cartId
-		d,err:=a.db.AddCartItem(data.CartItem)
-		if err!=nil{
-			return c.SendStatus(http.StatusInternalServerError)
-		}
-		return c.JSON(d)
-
+	err=a.cartStorage.AddItemToCart(c.Context(),cid,data.ProductId,data.Quantity)
+	if err!=nil{
+		return c.SendStatus(http.StatusInternalServerError)
 	}
+	return c.SendStatus(http.StatusOK)
 
 }
 
 func (a *App)deleteItemFroCart(c *fiber.Ctx) error{
+	cid:=c.Get("username","admin")
 	itemId,err:=c.ParamsInt("id")
 	if err!=nil{
 		return c.SendStatus(http.StatusBadRequest)
 	}
-	err=a.db.RemoveItemFromCart(itemId)
+	err=a.cartStorage.RemoveItemFromCart(c.Context(),cid,itemId)
 	if err!=nil {
 		return c.SendStatus(http.StatusInternalServerError)
 	}

@@ -4,20 +4,23 @@ import (
 	"fmt"
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/logger"
-	"github.com/mohammadiahmad/shop/internal/storage"
+	"github.com/mohammadiahmad/shop/internal/cart_storage"
+	"github.com/mohammadiahmad/shop/internal/readisearch"
 )
 
 type App struct {
-	server *fiber.App
-	db     *storage.Storage
-	config *Config
+	server 		*fiber.App
+	db     		*readisearch.Redisearch
+	cartStorage *cart_storage.CartStorage
+	config 		*Config
 }
 
-func NewApp(cfg *Config, storage *storage.Storage) *App {
+func NewApp(cfg *Config, storage *readisearch.Redisearch,cartStorage *cart_storage.CartStorage) *App {
 	app := fiber.New()
 	a := &App{
 		server: app,
 		db:     storage,
+		cartStorage: cartStorage,
 		config: cfg,
 	}
 	return a

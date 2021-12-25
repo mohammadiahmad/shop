@@ -6,8 +6,9 @@ package cmd
 
 import (
 	"github.com/mohammadiahmad/shop/internal/app"
+	"github.com/mohammadiahmad/shop/internal/cart_storage"
 	"github.com/mohammadiahmad/shop/internal/config"
-	"github.com/mohammadiahmad/shop/internal/storage"
+	"github.com/mohammadiahmad/shop/internal/readisearch"
 	"github.com/spf13/cobra"
 	"go.uber.org/zap"
 )
@@ -28,10 +29,12 @@ func init() {
 func server() {
 	cfg := config.Load()
 	l, _ := zap.NewProduction()
-	s, err := storage.NewDB(cfg.Storage, l)
+	s, err := readisearch.NewReadisearch(cfg.Storage, l)
 	if err != nil {
 		panic(err)
 	}
-	a := app.NewApp(&cfg.Server, s)
+
+	cs:=cart_storage.NewCartStorage(cfg.Redis)
+	a := app.NewApp(&cfg.Server, s,cs)
 	a.Run()
 }

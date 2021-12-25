@@ -1,18 +1,9 @@
 version: '3'
 
 services:
-  mysql:
-    image: mysql/mysql-server:8.0.23
-    command: --default-authentication-plugin=mysql_native_password
-    cap_add:
-      - SYS_NICE
+  redis:
+    image: redislabs/redisearch:latest
     ports:
-      - 3306:3306
-    volumes:
-      - ~/apps/mysql:/var/lib/mysql
-    environment:
-      - MYSQL_ROOT_PASSWORD=S3cret
-      - MYSQL_PASSWORD=admin
-      - MYSQL_USER=admin
-      - MYSQL_DATABASE=shop
+      - 6379:6379
+
 
