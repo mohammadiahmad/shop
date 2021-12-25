@@ -4,11 +4,11 @@
 This project have two api one for search between products and second for adding item to Cart.
 
 ###How to run?
-1. run mysql docker image using following command <br />
+1. run redisearch docker image using following command <br />
    ```
    make up
    ```
-2. migrate schemas using following command <br />
+2. create schemas using following command and adding test data <br />
    ```
    go run main.go migrate
    ```
@@ -16,7 +16,7 @@ This project have two api one for search between products and second for adding 
    ```
    go run main.go server
    ```
-4. tear down mysql db <br />
+4. tear down redisearch container<br />
    ```
    make down
    ```
@@ -24,26 +24,22 @@ This project have two api one for search between products and second for adding 
 ### Api Calls
 1. search items
    ```
-   curl -i -X GET 'http://127.0.0.1:9095/search?term=sh'
+   curl -i -X GET 'http://127.0.0.1:9095/search?term=show'
    ```
    
-2. add product to cart (cart_item_id,cart_id is optional)
+2. add product to cart 
     ```
     curl -i -X POST \
        -H "Content-Type:application/json" \
        -d \
     '{
-      "cart_item_id":1,
-      "cart_id":1,
       "product_id":1,
       "quantity":3,
-      "price":200,
-      "customer_id":1
     }' \
      'http://127.0.0.1:9095/cart-item'
     ```
 3. delete item from cart
    ```
-   curl -i -X DELETE 'http://127.0.0.1:9095/cart-item/2'
+   curl -i -X DELETE 'http://127.0.0.1:9095/cart-item/1'
    ```
    
