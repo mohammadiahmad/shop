@@ -3,7 +3,7 @@
 
 This project have two api one for search between products and second for adding item to Cart.
 
-###How to run?
+### How to run?
 1. run redisearch docker image using following command <br />
    ```
    make up
