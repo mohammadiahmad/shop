@@ -24,7 +24,6 @@ func NewCartStorage(cfg Config)  *CartStorage{
 
 func (c *CartStorage) AddItemToCart(ctx context.Context,customer string,product_id int,quantity int) error {
 	_,err:=c.redis.HSet(ctx,"cart:"+customer,product_id,quantity).Result()
-	fmt.Println(err)
 	return err
 }
 
