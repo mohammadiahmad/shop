@@ -1,4 +1,4 @@
-# :Shop: Shop [![Coverage Status][cov-img]][cov]
+[![Coverage Status][cov-img]][cov]
 
 # shop
 ### Simple Shop Api
