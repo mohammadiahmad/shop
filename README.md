@@ -1,3 +1,5 @@
+# :Shop: Shop [![Coverage Status][cov-img]][cov]
+
 # shop
 ### Simple Shop Api
 
